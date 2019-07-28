@@ -52,10 +52,16 @@ for i = 1:length(hour_bound) % hour
     end
 end
 
+
+
+fWait = waitbar(0,'1','Name','Processing data...','CreateCancelBtn','setappdata(gcbf,''canceling'',1)');
+
 for i = 1:nrow
     tempTime = datetime(char(a_time(i)), 'InputFormat', 'HH:mm', 'Format', 'HH:mm:ss');
     [h,m] = hms(tempTime);
-    i
+    
+    waitbar(i/nrow, fWait, sprintf('%d/%d', i, nrow));
+
     for j = 1:n_time_range
         [hl,ml] = hms(time_lbound(j));
         [hu,mu] = hms(time_ubound(j));
@@ -68,6 +74,8 @@ for i = 1:nrow
         end
     end
 end
+
+delete(fWait);
 
 data_save = cell(n_time_range+1, n_airline(1)+2);
 
