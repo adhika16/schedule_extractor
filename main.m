@@ -79,37 +79,20 @@ delete(fWait);
 
 data_save = cell(n_time_range+1, n_airline(1)+2);
 
-data_count = cell(n_time_range, n_airline(1));
-data_col_lbound = cell(n_time_range, 1);
-data_col_ubound = cell(n_time_range, 1);
-data_header_count = cell(1,n_airline(1));
-data_header = cell(1,n_airline(1)+2);
-
 for i = 1:n_time_range
-    data_col_lbound(i) = cellstr(time_lbound(i));
-    data_col_ubound(i) = cellstr(time_ubound(i));
-
     data_save(i+1,1) = cellstr(time_lbound(i));
     data_save(i+1,2) = cellstr(time_ubound(i));
 end
-
-data_header(1,1) = cellstr('lowerbound');
-data_header(1,2) = cellstr('upperbound');
 
 data_save(1,1) = cellstr('lowerbound');
 data_save(1,2) = cellstr('upperbound');
 
 for i = 1:n_airline(1)
-    data_header_count(1,i) = a_airline_code_data(i);
-    data_header(1,i+2) = a_airline_code_data(i);
-
     data_save(1,i+2) = a_airline_code_data(i);
 end
 
 for i = 1:n_time_range
     for j = 1:n_airline(1)
-        data_count(i,j) = cellstr(num2str(time_range(i,j)));
-
         data_save(i+1,j+2) = cellstr(num2str(time_range(i,j)));
     end
 end
